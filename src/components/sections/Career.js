@@ -9,7 +9,7 @@ const Career = () => {
     },
   ]
 
-  const [visibleCards, setVisibleCards] = useState([])
+  const [visibleCards, setVisibleCards] = useState(new Set())
   const cardRefs = useRef([])
 
   useEffect(() => {
@@ -18,7 +18,15 @@ const Career = () => {
         entries.forEach((entry) => {
           const index = cardRefs.current.indexOf(entry.target)
           if (entry.isIntersecting) {
-            setVisibleCards((prevVisibleCards) => [...prevVisibleCards, index])
+            setVisibleCards((prevVisibleCards) =>
+              new Set(prevVisibleCards).add(index)
+            )
+          } else {
+            setVisibleCards((prevVisibleCards) => {
+              const newVisibleCards = new Set(prevVisibleCards)
+              newVisibleCards.delete(index)
+              return newVisibleCards
+            })
           }
         })
       },
@@ -36,9 +44,9 @@ const Career = () => {
     <div
       ref={(el) => (cardRefs.current[index] = el)}
       key={index}
-      className={`transition-opacity duration-500 ${
-        visibleCards.includes(index) ? "opacity-100" : "opacity-0"
-      }`}
+      className={`transition-opacity duration-500  transform ${
+        visibleCards.has(index) ? "opacity-100" : "opacity-0"
+      } ${index % 2 === 0 ? "md:mr-auto" : "md:ml-auto"}`}
     >
       <h3>{content.title}</h3>
       <p>{content.description}</p>
@@ -48,7 +56,7 @@ const Career = () => {
   return (
     <section id="career" className="py-12 text-white bg-orange-500">
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-1 md:gap-8">
           {cardContents.map((content, index) => createCard(content, index))}
         </div>
       </div>

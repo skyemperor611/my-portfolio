@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <header className="fixed top-0 left-0 z-10 w-full bg-white shadow-md">
       <div className="container flex items-center justify-between p-4 mx-auto">
-        <h1 className="text-xl font-bold">사이트 이름</h1>
+        <h1 className="text-xl font-bold">노라에몽</h1>
         <nav>
           <Link
             to="about"
@@ -24,12 +24,12 @@ const Header = () => {
             Skills
           </Link>
           <Link
-            to="projects"
+            to="archiving"
             smooth={true}
             duration={500}
             className="px-4 hover:underline"
           >
-            Projects
+            Archiving
           </Link>
           <Link
             to="career"
@@ -39,6 +39,15 @@ const Header = () => {
           >
             Career
           </Link>
+          <Link
+            to="projects"
+            smooth={true}
+            duration={500}
+            className="px-4 hover:underline"
+          >
+            Projects
+          </Link>
+
           {/* More navigation links if necessary */}
         </nav>
       </div>
