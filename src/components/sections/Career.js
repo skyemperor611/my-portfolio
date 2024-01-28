@@ -17,7 +17,7 @@ const Career = () => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          const index = currentCardRefs.current.indexOf(entry.target)
+          const index = currentCardRefs.indexOf(entry.target)
           if (entry.isIntersecting) {
             setVisibleCards((prevVisibleCards) =>
               new Set(prevVisibleCards).add(index)
@@ -34,10 +34,10 @@ const Career = () => {
       { threshold: 0.1 }
     )
 
-    currentCardRefs.current.forEach((ref) => ref && observer.observe(ref))
+    currentCardRefs.forEach((ref) => ref && observer.observe(ref))
 
     return () => {
-      currentCardRefs.current.forEach((ref) => ref && observer.unobserve(ref))
+      currentCardRefs.forEach((ref) => ref && observer.unobserve(ref))
     }
   }, [])
 
