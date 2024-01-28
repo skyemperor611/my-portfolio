@@ -13,10 +13,11 @@ const Career = () => {
   const cardRefs = useRef([])
 
   useEffect(() => {
+    const currentCardRefs = cardRefs.current
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          const index = cardRefs.current.indexOf(entry.target)
+          const index = currentCardRefs.current.indexOf(entry.target)
           if (entry.isIntersecting) {
             setVisibleCards((prevVisibleCards) =>
               new Set(prevVisibleCards).add(index)
@@ -33,10 +34,10 @@ const Career = () => {
       { threshold: 0.1 }
     )
 
-    cardRefs.current.forEach((ref) => ref && observer.observe(ref))
+    currentCardRefs.current.forEach((ref) => ref && observer.observe(ref))
 
     return () => {
-      cardRefs.current.forEach((ref) => ref && observer.unobserve(ref))
+      currentCardRefs.current.forEach((ref) => ref && observer.unobserve(ref))
     }
   }, [])
 
